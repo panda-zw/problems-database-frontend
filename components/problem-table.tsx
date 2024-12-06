@@ -104,7 +104,7 @@ export default function ProblemsPage() {
     queryKey: [string, { page: number; limit: number; search: string }];
   }) => {
     const [_key, { page, limit, search }] = queryKey;
-
+    console.log(_key)
     const response = await fetch(
       `${
         process.env.NEXT_PUBLIC_BACKEND_URL
