@@ -98,6 +98,7 @@ export default function ProblemsPage() {
     queryKey: [string, { page: number; limit: number }];
   }) => {
     const [_key, { page, limit }] = queryKey;
+    console.log(_key)
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/problems?page=${page}&limit=${limit}`
     );
@@ -288,6 +289,15 @@ export default function ProblemsPage() {
                 </TableCell>
               </TableRow>
             )}
+            {
+              isError && (
+                <TableRow>
+                  <TableCell colSpan={columns.length} className="text-center">
+                    Failed to fetch data.
+                  </TableCell>
+                </TableRow>
+              )
+            }
           </TableBody>
         </Table>
       </div>
