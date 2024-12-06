@@ -1,5 +1,4 @@
 import ProblemTable from "@/components/problem-table";
-import Image from "next/image";
 
 export default function Home() {
   return (

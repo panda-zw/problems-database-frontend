@@ -129,6 +129,7 @@ export default function AddProblemModal({
         toast.error(errorData.message || "Failed to save problem.");
       }
     } catch (error) {
+      console.log(error)
       toast.error("An error occurred while saving the problem.");
     }
   };
