@@ -9,12 +9,12 @@ A modern frontend application for managing problems and solutions across sectors
 - **Real-Time Updates**: Ensure data consistency with React Query.
 
 ### Tech Stack
-- React: Library for building user interfaces.
-- Next.js: Framework for server-rendered React applications.
-- TanStack Table: Advanced table features such as sorting, pagination, and filtering.
-- ShadCN UI: Modern UI components for consistent design.
-- React Query: State management and data fetching.
-- Sonner: Toast notifications for user feedback.
+- **React**: Library for building user interfaces.
+- **Next.js**: Framework for server-rendered React applications.
+- **TanStack Table**: Advanced table features such as sorting, pagination, and filtering.
+- **ShadCN UI**: Modern UI components for consistent design.
+- **React Query**: State management and data fetching.
+- **Sonner**: Toast notifications for user feedback.
 
 ### Getting Started
 #### Prerequisites
