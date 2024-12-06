@@ -45,6 +45,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog";
+import { useDebounce } from "@/lib/utils";
 
 interface Problem {
   _id: string;
@@ -69,6 +70,11 @@ export default function ProblemsPage() {
     pageIndex: 0,
     pageSize: 10,
   });
+
+  const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce((value: string) => {
+    setSearch(value);
+  }, 300); // 300ms debounce delay
 
   const queryClient = useQueryClient();
   const deleteMutation = useMutation({
@@ -95,12 +101,16 @@ export default function ProblemsPage() {
   const fetchData = async ({
     queryKey,
   }: {
-    queryKey: [string, { page: number; limit: number }];
+    queryKey: [string, { page: number; limit: number; search: string }];
   }) => {
-    const [_key, { page, limit }] = queryKey;
-    console.log(_key)
+    const [_key, { page, limit, search }] = queryKey;
+
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/problems?page=${page}&limit=${limit}`
+      `${
+        process.env.NEXT_PUBLIC_BACKEND_URL
+      }/api/problems?page=${page}&limit=${limit}&search=${encodeURIComponent(
+        search
+      )}`
     );
     if (!response.ok) throw new Error("Failed to fetch problems");
     return response.json();
@@ -109,7 +119,7 @@ export default function ProblemsPage() {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [
       "problems",
-      { page: pagination.pageIndex + 1, limit: pagination.pageSize },
+      { page: pagination.pageIndex + 1, limit: pagination.pageSize, search },
     ],
     queryFn: fetchData,
   });
@@ -199,7 +209,11 @@ export default function ProblemsPage() {
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
-        <Input placeholder="Filter problems..." className="max-w-sm" />
+        <Input
+          placeholder="Search..."
+          className="max-w-sm"
+          onChange={(e) => debouncedSearch(e.target.value)}
+        />
         <Button className="ml-4" onClick={() => setIsModalOpen(true)}>
           Add Problem
         </Button>
