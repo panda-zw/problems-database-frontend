@@ -106,7 +106,7 @@ export default function ProblemsPage() {
     return response.json();
   };
 
-  const { data, isLoading, refetch, isError } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: [
       "problems",
       { page: pagination.pageIndex + 1, limit: pagination.pageSize },
@@ -289,15 +289,6 @@ export default function ProblemsPage() {
                 </TableCell>
               </TableRow>
             )}
-            {
-              isError && (
-                <TableRow>
-                  <TableCell colSpan={columns.length} className="text-center">
-                    Failed to fetch data.
-                  </TableCell>
-                </TableRow>
-              )
-            }
           </TableBody>
         </Table>
       </div>
